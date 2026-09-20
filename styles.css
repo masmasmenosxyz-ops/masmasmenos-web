@@ -1,95 +1,598 @@
-@font-face { font-family: "Neue Montreal"; src: url("./assets/NeueMontreal-Regular.otf") format("opentype"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Neue Montreal"; src: url("./assets/NeueMontreal-Medium.otf") format("opentype"); font-weight: 500; font-display: swap; }
-:root { font-family: "Neue Montreal", Arial, sans-serif; color: #202020; background: #fff; font-synthesis: none; -webkit-font-smoothing: antialiased; --ease: cubic-bezier(.16,1,.3,1); }
-* { box-sizing: border-box; }
-body { margin: 0; }
-.hero { position: relative; height: 100vh; height: 100dvh; overflow: clip; }
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.logo-anchor { position: absolute; z-index: 2; top: 8px; left: 8px; right: 8px; pointer-events: none; }
-.hero-logo { display: block; width: 100%; height: auto; filter: brightness(0) invert(.12); transform: perspective(1200px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); }
-.hero-content { position: absolute; z-index: 3; bottom: 8px; left: 0; width: 100%; display: flex; flex-direction: column; align-items: center; }
-.intro, .coming-soon { margin: 0; text-align: center; font-size: 14px; font-weight: 400; line-height: 1.18; }
-.intro { width: 330px; max-width: calc(100% - 48px); margin-bottom: 60px; }
-.studio-name { text-decoration: underline; text-underline-offset: 2px; }
-.coming-soon { margin-bottom: 60px; }
-.contact-nav { position: relative; width: 334px; height: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; flex: none; }
-.contact-nav :is(a, .contact-trigger) { position: relative; display: flex; align-items: center; justify-content: center; border-radius: 40px; color: #aaa; font-size: 14px; text-decoration: none; transition: color 360ms var(--ease); }
-
-.contact-nav :is(a, .contact-trigger):focus-visible { outline: 2px solid #555; outline-offset: 4px; }
-.button-shapes { position: absolute; inset: -8px; padding: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; filter: url(#button-goo); pointer-events: none; }
-.button-shapes i { background: #202020; border-radius: 40px; }
-.button-shapes::after { content: ""; position: absolute; width: 28px; height: 7px; left: 50%; top: 50%; transform: translate(-50%, -50%); background: #202020; }
-.contact-nav { --symbol-color: #aaa; }
-.word { white-space: nowrap; }
-.letter { position: relative; display: inline-block; }
-.letter::after { content: attr(data-symbol); position: absolute; inset: 0; text-align: center; color: var(--symbol-color, #202020); opacity: 0; text-decoration: none; }
-.letter.is-symbol { color: transparent; }
-.letter.is-symbol::after { opacity: 1; }
-.letter.is-hidden { opacity: 0; }
-@media (max-width: 600px) {
-  .intro { width: 290px; }
-  .studio-name { text-decoration: none; }
-  .date { font-weight: 500; }
-  .contact-nav { width: calc(100% - 24px); height: 65px; }
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./assets/NeueMontreal-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-display: swap;
 }
-@media (max-height: 600px) { .contact-nav { height: 48px; } }
-/* The bridge contracts inside the same goo filter; button dimensions stay fixed. */
-.button-shapes::after { transition: transform 620ms cubic-bezier(.4,0,.2,1), opacity 620ms ease; }
+
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./assets/NeueMontreal-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  font-family: "Neue Montreal", Arial, sans-serif;
+  color: #202020;
+  background: #fff;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.hero {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  overflow: clip;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.logo-anchor {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  pointer-events: none;
+}
+
+.hero-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: brightness(0) invert(.12);
+  transform:
+    perspective(1200px)
+    rotateX(var(--tilt-x, 0deg))
+    rotateY(var(--tilt-y, 0deg));
+}
+
+.hero-content {
+  position: absolute;
+  z-index: 3;
+  bottom: 8px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.intro,
+.coming-soon {
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.18;
+}
+
+.intro {
+  width: 330px;
+  max-width: calc(100% - 48px);
+  margin-bottom: 60px;
+}
+
+.studio-name {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.coming-soon {
+  margin-bottom: 60px;
+}
+
+/* CONTACT NAV */
+
+.contact-nav {
+  position: relative;
+  width: 334px;
+  height: 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  flex: none;
+  --symbol-color: #aaa;
+}
+
+.contact-nav :is(a, .contact-trigger) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  color: #aaa;
+  font-size: 14px;
+  text-decoration: none;
+  transition:
+    color 360ms var(--ease),
+    background-color 360ms var(--ease);
+}
+
+.contact-nav :is(a, .contact-trigger):focus-visible {
+  outline: 2px solid #555;
+  outline-offset: 4px;
+}
+
+.contact-nav :is(a, .contact-trigger):is(:hover, :focus-visible) {
+  color: #fff;
+  background-color: #000;
+  --symbol-color: #fff;
+}
+
+.contact-trigger {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* GOO BUTTON SHAPES */
+
+.button-shapes {
+  position: absolute;
+  inset: -8px;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  filter: url(#button-goo);
+  pointer-events: none;
+}
+
+.button-shapes i {
+  background: #202020;
+  border-radius: 40px;
+}
+
+.button-shapes::after {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 7px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #202020;
+  transition:
+    transform 620ms cubic-bezier(.4, 0, .2, 1),
+    opacity 620ms ease;
+}
+
 .contact-nav:has(:is(a, .contact-trigger):hover) .button-shapes::after,
-.contact-nav:has(:is(a, .contact-trigger):focus-visible) .button-shapes::after { transform: translate(-50%, -50%) scaleX(.1) scaleY(0); opacity: 0; }
-@media (prefers-reduced-motion: reduce) { .button-shapes::after { transition: none; } }
-
-.contact-nav :is(a, .contact-trigger) { transition: color 360ms var(--ease), background-color 360ms var(--ease); }
-.contact-nav :is(a, .contact-trigger):is(:hover, :focus-visible) { color: #fff; background-color: #000; --symbol-color: #fff; }
-
-.filter-definitions { position: absolute; pointer-events: none; }
-.opening-wordmark, .opening-surface { display: none; }
-.opening .hero { background: #000; }
-.opening .opening-wordmark { display: block; position: absolute; z-index: 0; top: 0; left: 0; width: 100%; height: auto; filter: brightness(0) invert(1); transform: translateY(-110%); pointer-events: none; }
-.opening .opening-surface { display: block; position: absolute; z-index: 1; inset: 0; background: #fff; transform: scale(0); transform-origin: center; will-change: transform; pointer-events: none; }
-.opening .logo-anchor, .opening .intro, .opening .coming-soon { visibility: hidden; }
-@media (prefers-reduced-motion: reduce) {
-  .opening .hero { background: #fff; }
-  .opening .opening-wordmark, .opening .opening-surface { display: none; }
-  .opening .logo-anchor, .opening .intro, .opening .coming-soon { visibility: visible; }
+.contact-nav:has(:is(a, .contact-trigger):focus-visible) .button-shapes::after {
+  transform: translate(-50%, -50%) scaleX(.1) scaleY(0);
+  opacity: 0;
 }
 
-.opening .contact-nav { transform: translateY(calc(100% + 24px)); }
-@media (prefers-reduced-motion: reduce) { .opening .contact-nav { transform: none; } }
+/* LETTER / SYMBOL ANIMATION */
 
-.contact-trigger { border: 0; padding: 0; background: transparent; font-family: inherit; cursor: pointer; }
-.contact-dialog { position: fixed; inset: auto 8px var(--modal-bottom, 76px); width: auto; max-width: none; max-height: var(--modal-available, calc(100dvh - 100px)); margin: 0; padding: 18px 8px 8px; border: 0; border-radius: 30px; background: #202020; color: #fff; font: 400 14px/1.18 "Neue Montreal", Arial, sans-serif; overflow: auto; overscroll-behavior: contain; }
-.contact-dialog::backdrop { background: transparent; }
-.contact-dialog:focus { outline: none; }
-.contact-title { margin: 0 44px 18px; text-align: center; font: inherit; --symbol-color: #fff; }
-.contact-title .muted { color: #888; --symbol-color: #888; }
-.contact-close { position: absolute; top: 7px; right: 12px; display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; background: transparent; color: #fff; font: 300 24px/1 Arial, sans-serif; cursor: pointer; }
-.contact-close:focus-visible, .contact-send:focus-visible { outline: 2px solid white; outline-offset: -5px; }
-.contact-fields { display: grid; grid-template-columns: minmax(0,25fr) minmax(0,60fr) minmax(0,16fr); gap: 4px; min-width: 0; margin: 0; padding: 0; border: 0; }
-.contact-field { position: relative; display: block; height: 60px; min-width: 0; border-radius: 30px; }
-.field-outline { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.field-outline rect { fill: none; stroke: #888; stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: 0; }
-.contact-field:focus-within .field-outline rect { stroke: #fff; }
-.contact-field input, .contact-field textarea { display: block; width: 100%; height: 100%; min-width: 0; margin: 0; padding: 20px 28px; resize: none; border: 0; border-radius: inherit; outline: none; background: transparent; color: #fff; font: inherit; line-height: 20px; box-shadow: none; }
-.contact-field input::placeholder, .contact-field textarea::placeholder { color: #aaa; opacity: 1; }
-.contact-send { min-width: 0; height: 60px; padding: 0 24px; border: 0; border-radius: 40px; background: #d9d8d8; color: #000; font: inherit; cursor: pointer; }
-.contact-send:hover { background: #fff; }
-.contact-send:disabled { cursor: wait; }
-.contact-honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-.contact-status { margin: 0 32px 12px; text-align: center; overflow-wrap: anywhere; }
-.contact-status a { color: inherit; text-underline-offset: 3px; }
-.contact-dialog.is-entering .contact-title { visibility: hidden; }
-.contact-dialog.is-entering .field-outline rect { stroke-dashoffset: 1; }
-.contact-dialog.is-entering :is(input, textarea, .contact-send) { opacity: 0; }
+.word {
+  white-space: nowrap;
+}
+
+.letter {
+  position: relative;
+  display: inline-block;
+}
+
+.letter::after {
+  content: attr(data-symbol);
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  color: var(--symbol-color, #202020);
+  opacity: 0;
+  text-decoration: none;
+}
+
+.letter.is-symbol {
+  color: transparent;
+}
+
+.letter.is-symbol::after {
+  opacity: 1;
+}
+
+.letter.is-hidden {
+  opacity: 0;
+}
+
+/* OPENING */
+
+.filter-definitions {
+  position: absolute;
+  pointer-events: none;
+}
+
+.opening-wordmark,
+.opening-surface {
+  display: none;
+}
+
+.opening .hero {
+  background: #000;
+}
+
+.opening .opening-wordmark {
+  display: block;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  filter: brightness(0) invert(1);
+  transform: translateY(-110%);
+  pointer-events: none;
+}
+
+.opening .opening-surface {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: #fff;
+  transform: scale(0);
+  transform-origin: center;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.opening .logo-anchor,
+.opening .intro,
+.opening .coming-soon {
+  visibility: hidden;
+}
+
+.opening .contact-nav {
+  transform: translateY(calc(100% + 24px));
+}
+
+/* CONTACT DIALOG */
+
+.contact-dialog {
+  position: fixed;
+  inset: auto 8px var(--modal-bottom, 76px);
+  width: auto;
+  max-width: none;
+  max-height: var(--modal-available, calc(100dvh - 100px));
+  margin: 0;
+  padding: 18px 8px 8px;
+  border: 0;
+  border-radius: 30px;
+  background: #202020;
+  color: #fff;
+  font: 400 14px/1.18 "Neue Montreal", Arial, sans-serif;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.contact-dialog::backdrop {
+  background: transparent;
+}
+
+.contact-dialog:focus {
+  outline: none;
+}
+
+/* CONTACT TITLE */
+
+.contact-title {
+  margin: 0 44px 8px;
+  text-align: center;
+  font: inherit;
+  --symbol-color: #fff;
+}
+
+.contact-title .muted {
+  color: #888;
+  --symbol-color: #888;
+}
+
+/* CLOSE */
+
+.contact-close {
+  position: absolute;
+  top: 7px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: 300 24px/1 Arial, sans-serif;
+  cursor: pointer;
+}
+
+.contact-close:focus-visible,
+.contact-send:focus-visible {
+  outline: 2px solid white;
+  outline-offset: -5px;
+}
+
+/* CONTACT FORM */
+
+.contact-fields {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 25fr)
+    minmax(0, 60fr)
+    minmax(0, 16fr);
+  gap: 4px;
+  min-width: 0;
+
+  /* Aire entre título/status y formulario */
+  margin: 24px 0 0;
+
+  padding: 0;
+  border: 0;
+}
+
+.contact-field {
+  position: relative;
+  display: block;
+  height: 60px;
+  min-width: 0;
+  border-radius: 30px;
+}
+
+/* FIELD OUTLINES */
+
+.field-outline {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.field-outline rect {
+  fill: none;
+  stroke: #888;
+  stroke-width: 1;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.contact-field:focus-within .field-outline rect {
+  stroke: #fff;
+}
+
+/* INPUTS */
+
+.contact-field input,
+.contact-field textarea {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 20px 28px;
+  resize: none;
+  border: 0;
+  border-radius: inherit;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  line-height: 20px;
+  box-shadow: none;
+  transition: color 400ms ease;
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+  color: #aaa;
+  opacity: 1;
+}
+
+/* SEND BUTTON */
+
+.contact-send {
+  min-width: 0;
+  height: 60px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 40px;
+  background: #d9d8d8;
+  color: #000;
+  font: inherit;
+  cursor: pointer;
+}
+
+.contact-send:hover {
+  background: #fff;
+}
+
+.contact-send:disabled {
+  cursor: wait;
+}
+
+/* HONEYPOT */
+
+.contact-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+/* STATUS */
+
+.contact-status {
+  margin: 0 32px 12px;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.contact-status a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+/* INITIAL ANIMATION STATES */
+
+.contact-dialog.is-entering .contact-title {
+  visibility: hidden;
+}
+
+/* -1 = outline draws in the new direction */
+.contact-dialog.is-entering .field-outline rect {
+  stroke-dashoffset: -1;
+}
+
+/* JS reveals email, message and Send fill separately */
+.contact-dialog.is-entering :is(input, textarea, .contact-send) {
+  opacity: 0;
+}
+
+/* Send text appears AFTER the button fill */
+.contact-dialog.is-entering .contact-send span {
+  opacity: 0;
+}
+
+/* AUTOFILL */
+
+.contact-field input:-webkit-autofill,
+.contact-field input:-webkit-autofill:hover,
+.contact-field input:-webkit-autofill:focus,
+.contact-field textarea:-webkit-autofill,
+.contact-field textarea:-webkit-autofill:hover,
+.contact-field textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  -webkit-box-shadow: 0 0 0 1000px #202020 inset;
+  box-shadow: 0 0 0 1000px #202020 inset;
+  caret-color: #fff;
+}
+
+/* MOBILE */
+
 @media (max-width: 600px) {
-  .contact-dialog { left: 12px; right: 12px; height: min(535px, var(--modal-available, calc(100dvh - 105px))); padding: 28px 8px 10px; border-radius: 30px; }
-  .contact-dialog[open] { display: flex; flex-direction: column; }
-  .contact-title { margin: 0 52px 24px 28px; text-align: left; }
-  .contact-title .muted { display: block; }
-  .contact-close { top: 14px; right: 14px; }
-  #contact-form { margin-top: auto; flex: none; }
-  .contact-fields { grid-template-columns: minmax(0, 1fr); gap: 6px; }
-  .message-field { height: 156px; }
-  .contact-send { margin-top: 6px; }
-  .contact-status { margin: 0 20px 16px; text-align: left; }
+  .intro {
+    width: 290px;
+  }
+
+  .studio-name {
+    text-decoration: none;
+  }
+
+  .date {
+    font-weight: 500;
+  }
+
+  .contact-nav {
+    width: calc(100% - 24px);
+    height: 65px;
+  }
+
+  .contact-dialog {
+    left: 12px;
+    right: 12px;
+    height: min(
+      535px,
+      var(--modal-available, calc(100dvh - 105px))
+    );
+    padding: 28px 8px 10px;
+    border-radius: 30px;
+  }
+
+  .contact-dialog[open] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-title {
+    margin: 0 52px 24px 28px;
+    text-align: left;
+  }
+
+  .contact-title .muted {
+    display: block;
+  }
+
+  .contact-close {
+    top: 14px;
+    right: 14px;
+  }
+
+  #contact-form {
+    margin-top: auto;
+    flex: none;
+  }
+
+  .contact-fields {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .message-field {
+    height: 156px;
+  }
+
+  .contact-send {
+    margin-top: 6px;
+  }
+
+  .contact-status {
+    margin: 0 20px 16px;
+    text-align: left;
+  }
+}
+
+@media (max-height: 600px) {
+  .contact-nav {
+    height: 48px;
+  }
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  .button-shapes::after {
+    transition: none;
+  }
+
+  .opening .hero {
+    background: #fff;
+  }
+
+  .opening .opening-wordmark,
+  .opening .opening-surface {
+    display: none;
+  }
+
+  .opening .logo-anchor,
+  .opening .intro,
+  .opening .coming-soon {
+    visibility: visible;
+  }
+
+  .opening .contact-nav {
+    transform: none;
+  }
 }
