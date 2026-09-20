@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="masmasmenos — digital design and brand content. Coming soon, November 2026." />
+  <title>masmasmenos — coming soon</title>
+  <link rel="preload" href="./assets/NeueMontreal-Regular.otf" as="font" type="font/otf" crossorigin />
+  <script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("opening");</script>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./contact-config.js" defer></script>
+  <script src="./main.js" defer></script>
+  <script src="./contact.js" type="module"></script>
+</head>
+<body>
+  <main class="hero">
+    <img class="opening-wordmark" src="./assets/Wordmark-white.svg" width="1063" height="86" alt="" aria-hidden="true" fetchpriority="high" />
+    <svg class="filter-definitions" aria-hidden="true" width="0" height="0"><defs><filter id="button-goo" x="-10%" y="-30%" width="120%" height="160%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="3" /><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9" /></filter></defs></svg>
+    <div class="opening-surface" aria-hidden="true"></div>
+    <h1 class="sr-only">masmasmenos — design studio</h1>
+    <div class="logo-anchor"><img class="hero-logo" src="./assets/Logo-dark.svg" width="435" height="208" alt="" fetchpriority="high" /></div>
+    <div class="hero-content">
+    <p class="intro" data-scramble><span class="studio-name">masmasmenos.xyz</span> is an awarded ipsum studio focusing in digital design and 360 brand content. AI integrated, easy, etc etc. s a lorem ipsum studio focusing in digital design and 360 brand content. led by Rocío Gómez.</p>
+    <p class="coming-soon" data-scramble>coming soon<br /><span class="date">nov 2026</span></p>
+    <nav class="contact-nav" aria-label="Get in touch">
+      <div class="button-shapes" aria-hidden="true"><i></i><i></i></div>
+      <a href="https://www.instagram.com/masmasmenos.xyz/" target="_blank" rel="noopener noreferrer">social</a>
+      <button type="button" class="contact-trigger" aria-haspopup="dialog" aria-controls="contact-dialog">contact</button>
+    </nav>
+    </div>
+  </main>
+  <dialog id="contact-dialog" class="contact-dialog" aria-labelledby="contact-title" tabindex="-1" autofocus>
+    <button class="contact-close" type="button" aria-label="Close contact form">×</button>
+    <p id="contact-title" class="contact-title" data-reveal>Get in touch. <span class="muted">We’ll respond as soon as possible.</span></p>
+    <p class="contact-status" role="status" aria-live="polite" hidden></p>
+    <form id="contact-form">
+      <fieldset class="contact-fields">
+        <legend class="sr-only">Send us a message</legend>
+        <label class="contact-field email-field">
+          <span class="sr-only">Your email</span>
+          <svg class="field-outline" aria-hidden="true"><rect x="0.5" y="0.5" rx="30" pathLength="1" /></svg>
+          <input type="email" name="email" placeholder="your email" autocomplete="email" required maxlength="254" />
+        </label>
+        <label class="contact-field message-field">
+          <span class="sr-only">Your message</span>
+          <svg class="field-outline" aria-hidden="true"><rect x="0.5" y="0.5" rx="30" pathLength="1" /></svg>
+          <textarea name="message" placeholder="your message" required maxlength="5000" rows="1"></textarea>
+        </label>
+        <label class="contact-honeypot" aria-hidden="true">Leave this empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+        <button class="contact-send" type="submit"><span>Send</span></button>
+      </fieldset>
+    </form>
+  </dialog>
+</body>
+</html>
