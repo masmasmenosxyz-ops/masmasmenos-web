@@ -374,7 +374,7 @@ body {
   fill: none;
   stroke: #888;
   stroke-width: 1;
-  stroke-dasharray: 1;
+  stroke-dasharray: none;
   stroke-dashoffset: 0;
 }
 
@@ -461,9 +461,9 @@ body {
   visibility: hidden;
 }
 
-/* -1 = outline draws in the new direction */
+/* The real path length is measured in JS to avoid Safari's pathLength rounding. */
 .contact-dialog.is-entering .field-outline rect {
-  stroke-dashoffset: -1;
+  stroke-dashoffset: var(--outline-hidden, 0px);
 }
 
 /* JS reveals email, message and Send fill separately */

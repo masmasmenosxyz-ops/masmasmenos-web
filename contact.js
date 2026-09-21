@@ -54,7 +54,33 @@ function sizeOutlines() {
     if (rect.getAttribute('height') !== height) {
       rect.setAttribute('height', height);
     }
+
+    const length = rect.getTotalLength();
+    const dash = `${length}px`;
+    const hidden = `${-length}px`;
+
+    if (rect.style.strokeDasharray !== dash) {
+      rect.style.strokeDasharray = dash;
+    }
+
+    if (rect.style.getPropertyValue('--outline-hidden') !== hidden) {
+      rect.style.setProperty('--outline-hidden', hidden);
+    }
   });
+}
+
+function outlineFrames(rect, hiding = false) {
+  const hidden = rect.style.getPropertyValue('--outline-hidden');
+
+  return hiding
+    ? [
+        { strokeDashoffset: '0px' },
+        { strokeDashoffset: hidden }
+      ]
+    : [
+        { strokeDashoffset: hidden },
+        { strokeDashoffset: '0px' }
+      ];
 }
 
 function fitViewport() {
@@ -211,10 +237,7 @@ async function openContact() {
   // 1. Línea email
   const emailOutlineReveal = animate(
     outlines[0],
-    [
-      { strokeDashoffset: -1 },
-      { strokeDashoffset: 0 }
-    ],
+    outlineFrames(outlines[0]),
     1100,
     'cubic-bezier(.16, 1, .2, 1)'
   );
@@ -240,10 +263,7 @@ async function openContact() {
 
     await animate(
       outlines[1],
-      [
-        { strokeDashoffset: -1 },
-        { strokeDashoffset: 0 }
-      ],
+      outlineFrames(outlines[1]),
       1100,
       'cubic-bezier(.16, 1, .2, 1)'
     );
@@ -394,10 +414,7 @@ async function closeContact() {
 
     await animate(
       outlines[1],
-      [
-        { strokeDashoffset: 0 },
-        { strokeDashoffset: -1 }
-      ],
+      outlineFrames(outlines[1], true),
       500,
       'cubic-bezier(.4, 0, .8, .2)'
     );
@@ -424,10 +441,7 @@ async function closeContact() {
 
     await animate(
       outlines[0],
-      [
-        { strokeDashoffset: 0 },
-        { strokeDashoffset: -1 }
-      ],
+      outlineFrames(outlines[0], true),
       500,
       'cubic-bezier(.4, 0, .8, .2)'
     );
