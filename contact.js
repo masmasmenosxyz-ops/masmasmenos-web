@@ -40,18 +40,20 @@ function syncControls() {
 }
 
 function sizeOutlines() {
+  if (!dialog.open) return;
+
   dialog.querySelectorAll('.contact-field').forEach(field => {
     const rect = field.querySelector('rect');
+    const width = String(Math.max(0, field.clientWidth - 1));
+    const height = String(Math.max(0, field.clientHeight - 1));
 
-    rect.setAttribute(
-      'width',
-      Math.max(0, field.clientWidth - 1)
-    );
+    if (rect.getAttribute('width') !== width) {
+      rect.setAttribute('width', width);
+    }
 
-    rect.setAttribute(
-      'height',
-      Math.max(0, field.clientHeight - 1)
-    );
+    if (rect.getAttribute('height') !== height) {
+      rect.setAttribute('height', height);
+    }
   });
 }
 
@@ -91,7 +93,9 @@ function fitViewport() {
 }
 
 const observer = new ResizeObserver(sizeOutlines);
-observer.observe(dialog);
+dialog.querySelectorAll('.contact-field').forEach(field => {
+  observer.observe(field);
+});
 
 window.addEventListener('resize', fitViewport);
 window.visualViewport?.addEventListener('resize', fitViewport);
