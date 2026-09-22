@@ -57,7 +57,7 @@ function sizeOutlines() {
 
     const length = rect.getTotalLength();
     const dash = `${length}px`;
-    const hidden = `${-length}px`;
+    const hidden = `${length}px`;
 
     if (rect.style.strokeDasharray !== dash) {
       rect.style.strokeDasharray = dash;
