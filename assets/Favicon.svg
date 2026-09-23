@@ -1,12 +1,34 @@
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_160_1119)">
-<rect width="512" height="512" fill="white"/>
-<rect width="512" height="512" fill="white"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M160.029 102L236.245 269.793C249.431 296.481 256.024 323.698 255.76 353.557H258.661C258.134 328.19 262.881 305.465 272.902 282.212L356.239 102H438.521V409.841H373.908V167.796H370.744C370.744 184.443 371.007 200.826 368.106 217.737C364.151 239.669 355.448 258.431 345.954 277.72L283.979 410.105H228.861L156.337 255.524C146.843 235.177 142.359 213.774 142.096 191.578V167.796H138.667V410.105H73V102H160.029Z" fill="#1E1E1E"/>
-</g>
-<defs>
-<clipPath id="clip0_160_1119">
-<rect width="512" height="512" fill="white"/>
-</clipPath>
-</defs>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 512 512">
+  <!-- Generator: Adobe Illustrator 30.8.1, SVG Export Plug-In . SVG Version: 2.1.4 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+      }
+
+      .st1 {
+        fill: #fff;
+      }
+
+      .st2 {
+        fill: #1e1e1e;
+        fill-rule: evenodd;
+      }
+
+      .st3 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="st0" width="512" height="512" rx="96" ry="96"/>
+    </clipPath>
+  </defs>
+  <g class="st3">
+    <g>
+      <rect class="st1" width="512" height="512"/>
+      <rect class="st1" width="512" height="512"/>
+      <path class="st2" d="M160,102l76.2,167.8c13.2,26.7,19.8,53.9,19.5,83.8h2.9c-.5-25.4,4.2-48.1,14.2-71.3l83.3-180.2h82.3v307.8h-64.6v-242h-3.2c0,16.6.3,33-2.6,49.9-4,21.9-12.7,40.7-22.2,60l-62,132.4h-55.1l-72.5-154.6c-9.5-20.3-14-41.8-14.2-63.9v-23.8h-3.4v242.3h-65.7V102h87Z"/>
+    </g>
+  </g>
 </svg>
