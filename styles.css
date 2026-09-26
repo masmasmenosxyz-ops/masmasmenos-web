@@ -246,6 +246,12 @@ body {
   pointer-events: none;
 }
 
+.opening-wordmark img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .opening .opening-surface {
   display: block;
   position: absolute;

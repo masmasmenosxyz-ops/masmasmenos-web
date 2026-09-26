@@ -183,7 +183,7 @@ async function openPage() {
   reducedMotion.addEventListener('change', finish);
   try {
     // Hold the black storyboard frame while first-frame assets and fonts load.
-    await Promise.all([document.fonts.ready, ...[logo, document.querySelector('.opening-wordmark')].map(image => image.complete ? Promise.resolve() : new Promise(resolve => {
+    await Promise.all([document.fonts.ready, ...[logo, document.querySelector('.opening-wordmark img')].map(image => image.complete ? Promise.resolve() : new Promise(resolve => {
       image.addEventListener('load', resolve, { once: true }); image.addEventListener('error', resolve, { once: true });
     }))]);
     if (stopped) return;
