@@ -1,0 +1,37 @@
+/* Shared compact and expanded mobile card shell. Cookie and More supply their own content. */
+@media (max-width: 600px) {
+  :root {
+    --mobile-card-edge: 12px;
+    --mobile-card-top: 12px;
+    --mobile-card-gap: 8px;
+    --mobile-card-width: min(148px, calc((100vw - 32px) / 2));
+    --mobile-card-expanded-width: min(377px, calc(100vw - 24px));
+    --mobile-card-height: 270px;
+    --mobile-card-expanded-height: min(673px, calc(100svh - 24px));
+  }
+
+  .mobile-card-frame {
+    top: var(--mobile-card-top);
+    left: var(--mobile-card-edge);
+    width: var(--mobile-card-width);
+    height: 0;
+    overflow: hidden;
+    border-radius: 4px;
+    font: 400 14px/normal "Neue Montreal", Arial, sans-serif;
+    transition: height 550ms var(--ease), width 550ms var(--ease), left 550ms var(--ease);
+  }
+
+  .mobile-card-surface {
+    --mobile-card-content-top: 11px;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    background: rgb(227 227 227 / 48%);
+    -webkit-backdrop-filter: blur(9px);
+    backdrop-filter: blur(9px);
+  }
+}
+
+@media (max-width: 600px) and (prefers-reduced-motion: reduce) {
+  .mobile-card-frame { transition: none; }
+}

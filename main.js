@@ -80,7 +80,7 @@ function tick(time) {
   }
   logo.style.setProperty('--tilt-x', `${current.rx}deg`);
   logo.style.setProperty('--tilt-y', `${current.ry}deg`);
-  const hoverEnabled = !contactOpen && !root.classList.contains('opening') && !reducedMotion.matches && finePointer.matches;
+  const hoverEnabled = !contactOpen && !root.classList.contains('opening') && !reducedMotion.matches;
   for (const text of texts) {
     if (text.start !== null && time - text.start >= text.duration) restoreText(text);
     for (const letter of text.letters) {
@@ -89,7 +89,10 @@ function tick(time) {
         const local = time - text.start - letter.delay;
         hidden = local < 0; symbol = local >= 0 && local < 460; moving = true;
       } else {
-        const inside = Boolean(text.element.hasAttribute('data-scramble') && hoverEnabled && pointer && Math.hypot(pointer.x - letter.x, pointer.y - letter.y) <= HOVER_RADIUS);
+        const inside = Boolean(
+          hoverEnabled && finePointer.matches && pointer && text.element.hasAttribute('data-scramble') &&
+          Math.hypot(pointer.x - letter.x, pointer.y - letter.y) <= HOVER_RADIUS
+        );
         if (inside) { letter.restoreAt = 0; if (!letter.inside) letter.next = 0; }
         else if (letter.inside) letter.restoreAt = time + 180;
         letter.inside = inside;
@@ -138,6 +141,9 @@ async function openPage() {
   const anchor = document.querySelector('.logo-anchor');
   const wordmark = document.querySelector('.opening-wordmark');
   const nav = document.querySelector('.contact-nav');
+  const instagram = document.querySelector('.instagram-link');
+  const mobileMore = document.querySelector('.mobile-more-trigger');
+  const mobileOpening = matchMedia('(max-width: 600px)').matches;
   let openingWidth = innerWidth;
   // Mobile browser chrome changes viewport height during load; keep the entrance alive.
   const onOpeningResize = () => {
@@ -161,9 +167,13 @@ async function openPage() {
     active.forEach(animation => animation.cancel());
     texts.forEach(text => { restoreText(text); text.element.style.removeProperty('visibility'); });
     anchor.style.removeProperty('visibility');
+    nav.style.removeProperty('visibility');
+    instagram.style.removeProperty('visibility');
+    mobileMore.style.removeProperty('visibility');
     window.removeEventListener('resize', onOpeningResize);
     reducedMotion.removeEventListener('change', finish);
     measureLetters();
+    window.dispatchEvent(new Event('beta:opening-complete'));
   };
   finishOpening = finish;
   const animate = async (element, keyframes, duration, delay = 0) => {
@@ -188,10 +198,7 @@ async function openPage() {
     }))]);
     if (stopped) return;
     openingWidth = innerWidth;
-    await Promise.all([
-      animate(wordmark, [{ transform: 'translateY(-110%)' }, { transform: 'translateY(0)' }], 620),
-      animate(nav, [{ transform: 'translateY(calc(100% + 24px))' }, { transform: 'translateY(0)' }], 620)
-    ]);
+    await animate(wordmark, [{ transform: 'translateY(-110%)' }, { transform: 'translateY(0)' }], 620);
     if (stopped) return;
     const box = anchor.getBoundingClientRect();
     const offset = innerHeight / 2 - (box.top + box.height / 2);
@@ -210,23 +217,55 @@ async function openPage() {
     });
     const surfaceAnimation = surface.animate(surfaceFrames, { duration: 950, easing: 'linear', fill: 'both' });
     active.add(surfaceAnimation);
-    // Iso starts at 770ms. Text starts 450ms later; pointer tilt unlocks at 900ms.
+    // On mobile, reveal the logo from its top edge only after Instagram finishes entering.
+    const buttonsStart = wait(770);
+    const instagramEntrance = (async () => {
+      await buttonsStart;
+      if (stopped) return;
+      instagram.style.visibility = 'visible';
+      await animate(instagram, [{ opacity: 0 }, { opacity: 1 }], 620);
+    })();
+    const otherButtonsEntrance = (async () => {
+      await buttonsStart;
+      if (stopped) return;
+      nav.style.visibility = 'visible';
+      if (mobileOpening) mobileMore.style.visibility = 'visible';
+      await Promise.all([
+        animate(nav, [{ transform: 'translateY(calc(100% + 24px))' }, { transform: 'translateY(0)' }], 620),
+        ...(mobileOpening ? [animate(mobileMore, [
+          { opacity: 0, transform: 'translateY(-8px)' },
+          { opacity: 1, transform: 'translateY(0)' }
+        ], 620)] : [])
+      ]);
+    })();
     await Promise.all([
       surfaceAnimation.finished.catch(() => {}),
+      instagramEntrance,
+      otherButtonsEntrance,
       (async () => {
-        await animate(anchor, [
+        if (mobileOpening) await instagramEntrance;
+        else await buttonsStart;
+        if (stopped) return;
+        await animate(anchor, mobileOpening ? [
+          { visibility: 'visible', clipPath: 'inset(0 0 100% 0)' },
+          { visibility: 'visible', clipPath: 'inset(0 0 0 0)' }
+        ] : [
           { visibility: 'visible', transform: `translateY(${offset}px) scale(0)` },
           { visibility: 'visible', transform: 'translateY(0) scale(1)' }
-        ], 900, 770);
+        ], 900);
         if (stopped) return;
         logoInteractive = true;
         updateLogoTarget();
       })(),
       (async () => {
-        await wait(1220);
+        if (mobileOpening) {
+          await instagramEntrance;
+          await wait(450);
+        } else await wait(1220);
         if (stopped) return;
-        await reveal(texts[0]);
-        await reveal(texts[1]);
+        window.dispatchEvent(new Event('beta:intro-reveal-start'));
+        await reveal(texts.find(text => text.element.classList.contains('intro')));
+        await reveal(texts.find(text => text.element.classList.contains('coming-soon')));
       })()
     ]);
   } finally { finish(); }

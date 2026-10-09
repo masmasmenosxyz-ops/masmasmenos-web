@@ -7,20 +7,33 @@
   <meta name="theme-color" content="#ffffff" />
   <meta name="description" content="masmasmenos — digital design and brand content. Coming soon, November 2026." />
   <title>masmasmenos — coming soon</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://masmasmenos.com/" />
+  <meta property="og:title" content="masmasmenos — coming soon" />
+  <meta property="og:description" content="masmasmenos — digital design and brand content. Coming soon, November 2026." />
+  <meta property="og:image" content="https://masmasmenos.com/assets/social-preview.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Black masmasmenos symbol on a white background" />
   <link rel="preload" href="./assets/NeueMontreal-Regular.otf" as="font" type="font/otf" crossorigin />
   <script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("opening");</script>
   <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./cookies.css" />
+  <link rel="stylesheet" href="./components/mobile-card.css" />
   <script src="./contact-config.js" defer></script>
   <script src="./main.js" defer></script>
+  <script src="./analytics-consent.js" defer></script>
   <script src="./contact.js" type="module"></script>
 </head>
 <body>
   <main class="hero">
+    <a class="instagram-link" href="https://www.instagram.com/masmasmenos.xyz/" target="_blank" rel="noopener noreferrer">instagram</a>
     <picture class="opening-wordmark" aria-hidden="true">
       <source media="(max-width: 600px)" srcset="./assets/++menos_Vertical.svg" />
       <img src="./assets/++menos_Horizontal.svg" width="1416" height="161" alt="" fetchpriority="high" />
     </picture>
-    <svg class="filter-definitions" aria-hidden="true" width="0" height="0"><defs><filter id="button-goo" x="-10%" y="-30%" width="120%" height="160%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="3" /><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9" /></filter></defs></svg>
+    <svg class="filter-definitions" aria-hidden="true" width="0" height="0"><defs><filter id="button-goo" x="-10%" y="-30%" width="120%" height="160%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="3" /><feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9" /></filter><filter id="cookie-glass-refraction" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".018 .012" numOctaves="1" seed="3" result="texture" /><feDisplacementMap in="SourceGraphic" in2="texture" scale="6" xChannelSelector="R" yChannelSelector="G" /></filter></defs></svg>
     <div class="opening-surface" aria-hidden="true"></div>
     <h1 class="sr-only">masmasmenos — design studio</h1>
     <div class="logo-anchor"><img class="hero-logo" src="./assets/Logo-dark.svg" width="435" height="208" alt="" fetchpriority="high" /></div>
@@ -29,13 +42,52 @@
     <p class="coming-soon" data-scramble>coming soon<br /><span class="date">nov 2026</span></p>
     <nav class="contact-nav" aria-label="Get in touch">
       <div class="button-shapes" aria-hidden="true"><i></i><i></i></div>
-      <a href="https://www.instagram.com/masmasmenos.xyz/" target="_blank" rel="noopener noreferrer">social</a>
+      <a href="https://www.figma.com/proto/RCsjFx3zXdUMSf0qIqhsf0/Portfolio---masmasmenos%C2%AE?node-id=0-530&amp;viewport=227%2C-561%2C0.14&amp;t=p6E7Ym8m9Rdl80Yw-1&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=0%3A530&amp;page-id=0%3A1" target="_blank" rel="noopener noreferrer">portfolio</a>
       <button type="button" class="contact-trigger" aria-haspopup="dialog" aria-controls="contact-dialog">contact</button>
     </nav>
     </div>
+    <button class="mobile-more-trigger" type="button" aria-label="More information" aria-haspopup="dialog" aria-controls="mobile-more-dialog" aria-expanded="false"><img class="mobile-more-plus" src="./icons/cookie-plus.svg" width="16" height="16" alt="" /><img class="mobile-more-cross" src="./icons/cookie-cross.svg" width="16" height="16" alt="" /></button>
   </main>
+  <dialog id="mobile-more-dialog" class="mobile-more-dialog" aria-labelledby="mobile-more-title">
+    <div class="mobile-more-panel mobile-card-frame">
+      <div class="mobile-more-surface mobile-card-surface">
+        <div class="mobile-more-copy">
+          <p id="mobile-more-title">All rights reserved to masmasmenos.</p>
+          <p class="mobile-more-privacy-note" id="mobile-more-privacy-note" role="status" hidden>For privacy questions, write to masmasmenos.xyz@gmail.com. Full privacy information is being prepared.</p>
+        </div>
+        <div class="mobile-more-options">
+          <button class="mobile-more-cookies" type="button"><span>cookies</span><img src="./icons/cookie-line.svg" width="16" height="16" alt="" /></button>
+          <button class="mobile-more-privacy" type="button" aria-expanded="false" aria-controls="mobile-more-privacy-note"><span>privacy</span><img src="./icons/cookie-line.svg" width="16" height="16" alt="" /></button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+  <button class="cookie-settings" type="button" aria-controls="cookie-card" aria-expanded="false" hidden>cookies</button>
+  <aside id="cookie-card" class="cookie-card body-small mobile-card-frame" aria-labelledby="cookie-question" hidden>
+    <div class="cookie-card-panel mobile-card-surface">
+      <div class="cookie-choice">
+        <p id="cookie-question">We use google<br />cookies. Is it ok?</p>
+        <div class="cookie-actions"><button class="cookie-yes" type="button"><span>Yes</span><svg class="cookie-action-icon" viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M12.5022 3.50027L6.50168 12.5008L3.50168 9.50027" pathLength="1" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="cookie-no" type="button"><span>No thnx</span><svg class="cookie-action-icon" viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M12.502 3.5L3.50142 12.5005" pathLength="1" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.4986 12.5015L3.49805 3.50098" pathLength="1" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      </div>
+      <div class="cookie-info" id="cookie-info" hidden>
+        <p class="cookie-info-intro">We use google<br />cookies. Is it ok?</p>
+        <div class="cookie-info-copy">
+          <h2>Cookies &amp; analytics</h2>
+          <p>masmasmenos uses Google Analytics to measure visits and improve this site. Analytics runs only if you choose Yes.</p>
+          <h3>What we store</h3>
+          <p><code>_ga</code> distinguishes visitors; <code>_ga_&lt;ID&gt;</code> maintains session state. Both can last up to two years, subject to browser limits. Your Yes/No choice is saved in this browser until you change it or clear site data.</p>
+          <h3>Your data</h3>
+          <p>When Analytics is on, Google may receive information about your visit, including the page URL, IP address and browser data. Google may process data outside the EEA.</p>
+          <h3>Your choice</h3>
+          <p>You can change it anytime through Cookies. Withdrawing consent stops Analytics and removes its cookies from this site. For questions or requests about your data: masmasmenos.xyz@gmail.com.</p>
+        </div>
+        <div class="cookie-info-actions"><button class="cookie-yes" type="button" data-consent="granted"><span>Yes</span><svg class="cookie-action-icon" viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M12.5022 3.50027L6.50168 12.5008L3.50168 9.50027" pathLength="1" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="cookie-no" type="button" data-consent="denied"><span>No thnx</span><svg class="cookie-action-icon" viewBox="0 0 16 16" width="16" height="16" fill="none" aria-hidden="true"><path d="M12.502 3.5L3.50142 12.5005" pathLength="1" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round"/><path d="M12.4986 12.5015L3.49805 3.50098" pathLength="1" stroke="#1E1E1E" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      </div>
+      <div class="cookie-more"><button class="cookie-info-button" type="button" aria-expanded="false" aria-controls="cookie-info"><span class="cookie-toggle-mark" aria-hidden="true"><img class="cookie-toggle-plus" src="./icons/cookie-plus.svg" width="16" height="16" alt="" /><img class="cookie-toggle-cross" src="./icons/cookie-cross.svg" width="16" height="16" alt="" /></span><span class="cookie-info-label">info</span><span class="cookie-close-label" hidden>close</span></button></div>
+    </div>
+  </aside>
   <dialog id="contact-dialog" class="contact-dialog" aria-labelledby="contact-title" tabindex="-1" autofocus>
-    <button class="contact-close" type="button" aria-label="Close contact form">×</button>
+    <button class="contact-close" type="button" aria-label="Close contact form"><img src="./assets/contact-cross.svg" width="16" height="16" alt="" aria-hidden="true" /></button>
     <p id="contact-title" class="contact-title" data-reveal>Get in touch. <span class="muted">We’ll respond as soon as possible.</span></p>
     <p class="contact-status" role="status" aria-live="polite" hidden></p>
     <form id="contact-form">

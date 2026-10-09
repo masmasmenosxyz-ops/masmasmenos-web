@@ -68,7 +68,7 @@ body {
 .hero-content {
   position: absolute;
   z-index: 3;
-  bottom: 8px;
+  bottom: 12px;
   left: 0;
   width: 100%;
   display: flex;
@@ -98,6 +98,34 @@ body {
 
 .coming-soon {
   margin-bottom: 60px;
+}
+
+.instagram-link {
+  position: absolute;
+  z-index: 4;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 130px;
+  height: 34px;
+  padding: 7px 12px 10px;
+  border-radius: 30px;
+  background: #dbdbdb;
+  color: #1e1e1e;
+  font-size: 14px;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.instagram-link:is(:hover, :focus-visible) {
+  background: #c6c6c6;
+}
+
+.instagram-link:focus-visible {
+  outline: 2px solid #1e1e1e;
+  outline-offset: 3px;
 }
 
 /* CONTACT NAV */
@@ -265,6 +293,8 @@ body {
 }
 
 .opening .logo-anchor,
+.opening .instagram-link,
+.opening .contact-nav,
 .opening .intro,
 .opening .coming-soon {
   visibility: hidden;
@@ -272,6 +302,198 @@ body {
 
 .opening .contact-nav {
   transform: translateY(calc(100% + 24px));
+}
+
+/* ANALYTICS CONSENT */
+
+.cookie-card {
+  position: fixed;
+  z-index: 10;
+  top: 10px;
+  left: 50%;
+  width: 147px;
+  height: 0;
+  overflow: hidden;
+  transform: translateX(-50%);
+  border: 0;
+  border-radius: 4px;
+  color: #1e1e1e;
+  font: 400 14px/1.18 "Neue Montreal", Arial, sans-serif;
+  transition: height 550ms var(--ease);
+}
+
+.cookie-card.is-open {
+  height: 204px;
+}
+
+.cookie-card-panel {
+  position: relative;
+  width: 147px;
+  height: 204px;
+  padding: 15px 14px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border-radius: 4px;
+  background: rgb(217 217 217 / 50%);
+  -webkit-backdrop-filter: blur(11px);
+  backdrop-filter: blur(11px);
+}
+
+.cookie-card-panel::before,
+.cookie-card-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.cookie-card-panel::before {
+  -webkit-backdrop-filter: url("#cookie-glass-refraction");
+  backdrop-filter: url("#cookie-glass-refraction");
+}
+
+.cookie-card-panel::after {
+  border: 1px solid rgb(255 255 255 / 48%);
+  border-right-color: rgb(64 64 64 / 10%);
+  border-bottom-color: rgb(64 64 64 / 8%);
+  background: linear-gradient(135deg, rgb(255 255 255 / 19%), transparent 38%, rgb(70 70 70 / 6%) 100%);
+  box-shadow: inset 2px 2px 9px rgb(255 255 255 / 24%), inset -3px -3px 10px rgb(50 50 50 / 7%);
+}
+
+.cookie-card-panel > p,
+.cookie-card-panel > .cookie-actions {
+  position: relative;
+  z-index: 1;
+}
+
+.cookie-card[hidden],
+.cookie-settings[hidden] {
+  display: none;
+}
+
+.cookie-card p {
+  margin: 0;
+  text-align: center;
+}
+
+.cookie-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.cookie-actions button,
+.cookie-settings {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.cookie-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 24px;
+  white-space: nowrap;
+}
+
+.cookie-yes::after,
+.cookie-settings::after {
+  content: "";
+  display: block;
+  width: 13px;
+  height: 1px;
+  flex: none;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 360ms var(--ease);
+}
+
+.cookie-actions .cookie-no {
+  gap: 0;
+}
+
+.cookie-cross {
+  width: 0;
+  height: 16px;
+  margin-left: 0;
+  flex: none;
+  overflow: hidden;
+  stroke: currentColor;
+  stroke-width: 1;
+  transition: width 360ms var(--ease), margin-left 360ms var(--ease);
+}
+
+.cookie-cross path {
+  stroke-dasharray: 12;
+  stroke-dashoffset: 12;
+  transition: stroke-dashoffset 360ms var(--ease);
+}
+
+.cookie-actions button:focus-visible,
+.cookie-settings:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.cookie-settings {
+  position: fixed;
+  z-index: 9;
+  bottom: 17px;
+  left: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #aaa;
+  font-size: 11px;
+  line-height: 1.2;
+  transition: color 360ms var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cookie-yes:hover::after,
+  .cookie-settings:hover::after {
+    transform: scaleX(1);
+  }
+
+  .cookie-no:hover .cookie-cross {
+    width: 16px;
+    margin-left: 4px;
+  }
+
+  .cookie-no:hover .cookie-cross path {
+    stroke-dashoffset: 0;
+  }
+
+  .cookie-settings:hover {
+    color: #1e1e1e;
+  }
+}
+
+.cookie-yes:focus-visible::after,
+.cookie-settings:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.cookie-no:focus-visible .cookie-cross {
+  width: 16px;
+  margin-left: 4px;
+}
+
+.cookie-no:focus-visible .cookie-cross path {
+  stroke-dashoffset: 0;
+}
+
+.cookie-settings:focus-visible {
+  color: #1e1e1e;
 }
 
 /* CONTACT DIALOG */
@@ -329,7 +551,6 @@ body {
   border: 0;
   background: transparent;
   color: #fff;
-  font: 300 24px/1 Arial, sans-serif;
   cursor: pointer;
 }
 
@@ -499,6 +720,34 @@ body {
 /* MOBILE */
 
 @media (max-width: 600px) {
+  .logo-anchor {
+    top: 12px;
+    left: 12px;
+    right: 12px;
+  }
+
+  .instagram-link {
+    top: 12px;
+    right: 12px;
+    min-width: 80px;
+    font-size: 15px;
+  }
+
+  .cookie-card {
+    top: 8px;
+    left: 8px;
+    transform: none;
+  }
+
+  .cookie-settings {
+    bottom: 5px;
+    left: 12px;
+  }
+
+  .hero-content {
+    bottom: 12px;
+  }
+
   .intro {
     width: 290px;
   }
@@ -579,6 +828,15 @@ body {
 /* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
+  .cookie-card,
+  .cookie-yes::after,
+  .cookie-cross,
+  .cookie-cross path,
+  .cookie-settings::after,
+  .cookie-settings {
+    transition: none;
+  }
+
   .button-shapes::after {
     transition: none;
   }
@@ -593,6 +851,8 @@ body {
   }
 
   .opening .logo-anchor,
+  .opening .instagram-link,
+  .opening .contact-nav,
   .opening .intro,
   .opening .coming-soon {
     visibility: visible;
@@ -602,3 +862,6 @@ body {
     transform: none;
   }
 }
+
+/* Library cross (Figma 192:655), white against the contact surface. */
+.contact-close img { display: block; filter: brightness(0) invert(1); pointer-events: none; }
